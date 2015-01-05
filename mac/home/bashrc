@@ -1,0 +1,42 @@
+# use gnu coreutils
+export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+
+# add local path
+export PATH=~/local/bin:~/local/sbin:$PATH
+
+# add rvm path
+export PATH=$PATH:$HOME/.rvm/bin
+
+# Terminal colours (after installing GNU coreutils)
+NM="\[\033[0;38m\]"  # means no background and white lines
+HI="\[\033[0;37m\]"  # change this for letter colors
+HII="\[\033[0;31m\]" # change this for letter colors
+SI="\[\033[0;33m\]"  # this is for the current directory
+SII="\[\033[0;34m\]"
+IN="\[\033[0m\]"
+US="\[\033[0;32m\]"
+BR="\[\033[0;35m\]"
+
+parse_git_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
+}
+
+#export PS1="\h:\W \u\$ "
+#export PS1="$NM[ $HI\u $HII\h $SI\w$NM ] $IN"
+#export PS1="$NM[ $HII\u@\h$SI: \w$BR\$(parse_git_branch) $NM] \n\$ $IN"
+#export PS1="$HII\h: $SI\w$BR\$(parse_git_branch)$NM\$ "
+#export PS1="$HII\h: $SI\W$BR\$(parse_git_branch)$NM\$ "
+
+[ -z "$SSH_CLIENT" ] && HOST="" || HOST="@\h"
+export PS1="$HII\u$HOST: $SI\w$BR\$(parse_git_branch)$NM\$ $IN"
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# set aliases
+alias ls='ls --color -F'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias ldd='otool -L'
+
