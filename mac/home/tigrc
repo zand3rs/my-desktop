@@ -1,0 +1,4 @@
+# custom settings
+color cursor			black	green	bold
+color title-focus		black	blue	bold
+color title-blur		black	blue	bold
