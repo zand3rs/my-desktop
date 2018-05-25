@@ -54,6 +54,7 @@ git config $GIT_OPTS alias.ci commit
 git config $GIT_OPTS alias.df diff
 git config $GIT_OPTS alias.lg log
 git config $GIT_OPTS push.default current
+git config $GIT_OPTS push.followTags true
 git config $GIT_OPTS branch.master.rebase true
 git config $GIT_OPTS branch.autosetuprebase always
 
