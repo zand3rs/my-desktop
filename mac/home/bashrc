@@ -1,11 +1,9 @@
 # use gnu coreutils
-export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 # add local path
 export PATH=~/local/bin:~/local/sbin:$PATH
-
-# add rvm path
-export PATH=$PATH:$HOME/.rvm/bin
 
 # Terminal colours (after installing GNU coreutils)
 NM="\[\033[0;38m\]"  # means no background and white lines
@@ -29,9 +27,6 @@ parse_git_branch() {
 
 [ -z "$SSH_CLIENT" ] && HOST="" || HOST="@\h"
 export PS1="$HII\u$HOST: $SI\w$BR\$(parse_git_branch)$NM\$ $IN"
-
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # set aliases
 alias ls='ls --color -F'
