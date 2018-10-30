@@ -27,7 +27,7 @@ describe "CLI" do
 
     # use fake home for .ssh hacks
     run "mkdir #{dir}/home"
-    ENV["HOME"] = File.expand_path("#{dir}/home")
+    ENV["HOME"] = File.absolute_path("#{dir}/home")
 
     Dir.chdir dir do
       run "touch a"
@@ -269,21 +269,47 @@ describe "CLI" do
         end
       end
 
-      it "fails if it cannot find a pairs file" do
-        run "git pair ab", :fail => true
+      context "and without a .pairs file in the home directory" do
+        it "fails if it cannot find a pairs file" do
+          run "git pair ab", :fail => true
+        end
+
+        it "prints instructions" do
+          result = run "git pair ab", :fail => true
+          result.should include("Could not find a .pairs file. Create a YAML file in your project or home directory.")
+        end
       end
 
-      it "prints instructions" do
-        result = run "git pair ab", :fail => true
-        result.should include("Could not find a .pairs file. Create a YAML file in your project or home directory.")
+      context "but a .pairs file in the home directory" do
+        around do |example|
+          file = File.join(ENV["HOME"], ".pairs") 
+          write file, <<-YAML.unindent
+            pairs:
+              ab: Aa Bb
+              bc: Bb Cc
+              cd: Cc Dd
+
+            email:
+              prefix: the-pair
+              domain: the-host.com
+          YAML
+
+          example.run
+
+          FileUtils.rm file
+        end
+
+        it "loads the file" do
+          result = run "git pair ab"
+          expect_config result, "Aa Bb", "ab", "the-pair+aa@the-host.com"
+        end
       end
     end
   end
 
   describe 'pair-commit' do
-    context 'when a pair has been set' do
-      before do
-        write ".pairs", <<-YAML.unindent
+    before do
+      write ".pairs", <<-YAML.unindent
           pairs:
             ab: Aa Bb; abb
             bc: Bb Cc; bcc
@@ -292,7 +318,14 @@ describe "CLI" do
           email:
             prefix: the-pair
             domain: the-host.com
-        YAML
+
+          email_addresses:
+            bc: test@other-host.com
+      YAML
+    end
+
+    context 'when a pair has been set' do
+      before do
         run "git pair ab cd"
       end
 
@@ -374,6 +407,20 @@ describe "CLI" do
           %w(abb@the-host.com cdd@the-host.com).should include(committer_email_of_last_commit)
         end
       end
+
+      context 'when one of the pair has a custom email address' do
+        before do
+          run 'git pair ab bc'
+        end
+
+        it 'uses that email address' do
+          emails = 6.times.map do
+            git_pair_commit
+            author_email_of_last_commit
+          end.uniq
+          emails.should =~ ['abb@the-host.com', 'test@other-host.com']
+        end
+      end
     end
 
     context 'when no pair has been set' do
@@ -392,7 +439,7 @@ describe "CLI" do
     def git_pair_commit
       run "echo #{rand(100)} > b"
       run 'git add b'
-      run 'git pair-commit -m "Pair pare pear"', fail: true
+      run 'git pair-commit -m "Pair pare pear"', :fail => true
     end
   end
 end
