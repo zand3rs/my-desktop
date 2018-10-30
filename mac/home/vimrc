@@ -1,7 +1,7 @@
 syntax on
 color zanders
-se ts=2
-se sw=2
+se ts=4
+se sw=4
 se ls=2
 se et
 se ai
@@ -19,6 +19,7 @@ au! BufRead,BufNewFile *.json set filetype=json
 au! BufRead,BufNewFile *.jake,Jakefile set filetype=jake
 au! BufRead,BufNewFile *.ejs set filetype=html
 
-" specific for javascript files
-autocmd Filetype javascript,json,jake setlocal syntax=javascript
+" file specific
+au! Filetype javascript,json,jake setlocal syntax=javascript ts=2 sw=2
+au! Filetype ruby setlocal ts=2 sw=2
 
