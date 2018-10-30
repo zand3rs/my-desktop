@@ -28,10 +28,13 @@ module PivotalGitScripts
         global = !!(options[:global] || config["global"])
 
         if initials.any?
-          author_names, email_ids = extract_author_names_and_email_ids_from_config(config, initials)
+          author_details = extract_author_details_from_config(config, initials)
+          author_names = author_details.keys.map { |i| author_details[i][:name] }
+          author_emails = author_details.keys.map { |i| author_details[i][:email] }
           authors = pair_names(author_names)
-          git_config = {:name => authors,  :initials => initials.sort.join(" ")}
-          git_config[:email] = build_email(email_ids, config["email"]) unless no_email(config)
+
+          git_config = {:name => authors,  :initials => initials.join(" ")}
+          git_config[:email] = build_email(author_emails, config["email"]) unless no_email(config)
           set_git_config global,  git_config
         else
           git_config = {:name => nil,  :initials => nil}
@@ -172,7 +175,12 @@ BANNER
       def build_email(emails, config)
         if config.is_a?(Hash)
           prefix = config['prefix'] if !config['no_solo_prefix'] or emails.size > 1
-          "#{([prefix] + emails).compact.join('+')}@#{config['domain']}"
+          email_ids = emails.map { |e| e.gsub(/@.*$/, '') }
+          if emails.size == 1
+            "#{([prefix] + emails).compact.join('+')}"
+          else
+            "#{([prefix] + email_ids).compact.join('+')}@#{config['domain']}"
+          end
         else
           config
         end
