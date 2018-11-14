@@ -49,4 +49,11 @@ export LC_ALL=en_US.UTF-8
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 ## pyenv
-#eval "$(pyenv init -)"
+#if command -v pyenv 2>&1 >/dev/null; then
+#    eval "$(pyenv init -)"
+#fi
+
+## pipenv
+#if command -v pipenv 2>&1 >/dev/null; then
+#    eval "$(pipenv --completion)"
+#fi
