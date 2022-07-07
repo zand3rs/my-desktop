@@ -1,6 +1,6 @@
 # use gnu coreutils
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+export PATH=/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
+export MANPATH=/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
 
 # add local path
 export PATH=~/local/bin:~/local/sbin:$PATH

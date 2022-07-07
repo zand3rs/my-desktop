@@ -20,11 +20,11 @@ done
 function install_scripts {
     local GIT_SCRIPTS="$BASEDIR/git_scripts"
 
-    for DIR in "/tmp/bin" "/usr/local/bin" "/usr/bin"; do
+    for DIR in "/opt/homebrew/bin" "/usr/local/bin" "/usr/bin"; do
         if [ -d $DIR ]; then
             if [ -d "$GIT_SCRIPTS" ]; then
                 while true; do
-                    read -p "Do you wish to install git_scripts? [y/n] " ANS
+                    read -p "Do you wish to install git_scripts in $DIR? [y/n] " ANS
                     case $ANS in
                         [Yy])
                             sudo \cp -RPpf $GIT_SCRIPTS/* $DIR/

@@ -17,7 +17,7 @@ My desktop settings
 
    ```sh
    # Homebrew
-   $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+   # Checkout the ff. link for instructions: https://brew.sh
 
    # MacPorts
    # Checkout the ff. link for instructions: https://www.macports.org/install.php
@@ -35,8 +35,9 @@ My desktop settings
    # PATH and MANPATH settings (brew is configured by default in .bashrc)
    #
    # using brew
-   # export PATH=/usr/local/opt/coreutils/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
-   # export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+   # export PATH=/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
+   # export MANPATH=/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
+
    #
    # using port
    # export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH
@@ -81,14 +82,11 @@ My desktop settings
 8. Install NVM
 
    ```sh
-   $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+   # Checkout the ff. link for instructions: https://github.com/nvm-sh/nvm
    ```
 
 9. Install git-gui
 
    ```sh
-   $ git clone git://repo.or.cz/git-gui.git
-   $ cd git-gui
-   $ make
-   $ sudo make install
+   $ brew install git-gui
    ```
