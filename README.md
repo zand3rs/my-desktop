@@ -90,3 +90,9 @@ My desktop settings
    ```sh
    $ brew install git-gui
    ```
+
+10. Copy text from Terminal without formatting
+
+   ```sh
+   $ defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes
+   ```
