@@ -13,7 +13,17 @@ My desktop settings
 
 ## Quick Install
 
-1. Install Homebrew and/or MacPorts
+1. Change the default shell
+
+   ```sh
+   # use bash
+   $ chsh -s /bin/bash
+
+   # use zsh
+   $ chsh -s /bin/zsh
+   ```
+
+2. Install Homebrew and/or MacPorts
 
    ```sh
    # Homebrew
@@ -23,7 +33,7 @@ My desktop settings
    # Checkout the ff. link for instructions: https://www.macports.org/install.php
    ```
 
-2. Install Coreutils
+3. Install Coreutils
 
    ```sh
    # Homebrew
@@ -44,7 +54,7 @@ My desktop settings
    # export MANPATH=/opt/local/libexec/gnuman:$MANPATH
    ```
 
-3. Setup home directory.
+4. Setup home directory.
 
    ```sh
    $ cd mac/home/
@@ -57,41 +67,41 @@ My desktop settings
    $ cp pairs ~/.pairs
    ```
    
-4. Install terminal profile.
+5. Install terminal profile.
    Open terminal preferences and import mac/terminal/IR_Black/zanders.terminal
 
-5. Install git scripts
+6. Install git scripts
 
    ```sh
    $ cd scripts/git/
    $ ./git-config.sh -g
    ```
 
-6. Install tig
+7. Install tig
 
    ```sh
    $ brew install tig
    ```
 
-7. Install Node.js
+8. Install Node.js
 
    ```sh
    $ brew install node
    ```
 
-8. Install NVM
+9. Install NVM
 
    ```sh
    # Checkout the ff. link for instructions: https://github.com/nvm-sh/nvm
    ```
 
-9. Install git-gui
+10. Install git-gui
 
    ```sh
    $ brew install git-gui
    ```
 
-10. Copy text from Terminal without formatting
+11. Copy text from Terminal without formatting
 
    ```sh
    $ defaults write com.apple.Terminal CopyAttributesProfile com.apple.Terminal.no-attributes
