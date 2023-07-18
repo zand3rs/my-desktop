@@ -1,3 +1,9 @@
+# suppress zsh warning
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# add homebrew path
+export PATH=/opt/homebrew/bin:$PATH
+
 # use gnu coreutils
 export PATH=/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH
 export MANPATH=/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH
